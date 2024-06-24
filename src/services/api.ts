@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useAuthStore } from '../zustand-store/authStore';
 
 const api = axios.create({
-    baseURL: process.env.API_BASE_URL,
+    baseURL: 'https://54.144.228.160',
     headers: {
         "Content-Type": 'application/json',
         'Access-Control-Allow-Origin': '*'

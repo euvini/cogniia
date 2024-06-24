@@ -9,9 +9,7 @@ export default function middleware(request: NextRequest) {
     const unAuthPaths = [
         '/login',
         '/recovery',
-        '/register',
-        '/privacy-terms',
-        '/service-terms'
+        '/register'
     ]
 
     if (!token) {

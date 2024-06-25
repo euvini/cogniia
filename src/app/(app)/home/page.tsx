@@ -1,7 +1,6 @@
 'use client'
 import { AlertToastComponent } from "@/components/alert";
 import MessageBubble from "@/components/message";
-import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { sendMessageToAI } from "@/services/aiService";
@@ -63,7 +62,7 @@ const Home = () => {
     }, [aiResponse])
 
     return (
-        <div className="w-full h-full flex flex-col p-7 relative items-center gap-5 max-h-screen">
+        <div className="w-full h-full flex flex-col px-7 pb-7 relative items-center gap-5 max-h-screen">
             <ScrollArea id='scrollArea' className="h-full pr-3 max-w-xl w-full">
                 <div className="w-full h-20 z-10 absolute top-0 bg-gradient-to-b from-white via-white-opacity-30 to-white-opacity-70" />
                 <div className="flex flex-col items-center justify-center max-w-xl pt-8">

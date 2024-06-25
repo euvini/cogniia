@@ -39,3 +39,18 @@ export interface RecoveryPasswordRequest {
     token: string,
     password: string
 }
+
+export interface ISendMessageToAI {
+    session_id: string
+    user_id_ext: string
+    text: string
+    sender_type: string
+    create_session: boolean
+}
+
+export interface IResponseMessageFromAI {
+    session_id: string
+    user_id_ext: string
+    text: string
+    sender_type: string
+}

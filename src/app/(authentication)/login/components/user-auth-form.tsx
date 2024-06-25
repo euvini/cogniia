@@ -12,7 +12,7 @@ import { fadeBackgroundControllStore } from "@/zustand-store/fade-backgroung"
 import { login } from "@/services/authService"
 import { useRouter } from "next/navigation"
 import { AlertDialogComponent } from "@/components/alertComponent"
-import { AlertToastComponent } from "./alert"
+import { AlertToastComponent } from "../../../../components/alert"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 

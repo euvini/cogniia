@@ -4,7 +4,7 @@ import { StatusCodeEnum } from './types';
 import { logout } from './authService';
 
 const api = axios.create({
-    baseURL: 'https://54.144.228.160',
+    baseURL: 'https://cogniia.com.br:3000/',
     headers: {
         "Content-Type": 'application/json',
         'Access-Control-Allow-Origin': '*'

@@ -1,5 +1,4 @@
 import { IResponseMessageFromAI } from "@/services/types";
-import { Label } from "../ui/label";
 import { UserCircle } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";

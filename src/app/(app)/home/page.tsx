@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 
 const Home = () => {
     const endRef = useRef<HTMLDivElement | null>(null)
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [prompt, setPrompt] = useState<string>('')
     const [aiResponse, setAiResponse] = useState<IResponseMessageFromAI[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -26,33 +27,38 @@ const Home = () => {
                 session_id: "4edfa0b9-0e36-46e9-aab3-c4628561051e",
                 user_id_ext: '5',
                 text: prompt
-            }])
-        await sendMessageToAI({
-            create_session: false,
-            session_id: "4edfa0b9-0e36-46e9-aab3-c4628561051e", //alterar depois
-            user_id_ext: "5", //alterar depois
-            text: prompt,
-            sender_type: "user"
-        })
-            .then(response => {
-                const ai = response?.data
-                setAiResponse(prev => [...prev, ai])
-                setPrompt('')
-            }).catch(e => {
-                const messages = aiResponse?.slice(0, -1)
-                setAiResponse(messages)
-                setError(true)
-                console.log(e)
-            }).finally(() => setIsLoading(false))
+            }
+        ]);
+
+        try {
+            const response = await sendMessageToAI({
+                create_session: false,
+                session_id: "4edfa0b9-0e36-46e9-aab3-c4628561051e", // alterar depois
+                user_id_ext: "5", // alterar depois
+                text: prompt,
+                sender_type: "user"
+            });
+
+            const ai = response?.data;
+            setAiResponse(prev => [...prev, ai]);
+            setPrompt('');
+        } catch (e) {
+            const messages = aiResponse.slice(0, -1);
+            setAiResponse(messages);
+            setError(true);
+            console.log(e);
+        } finally {
+            setIsLoading(false);
+            textareaRef.current?.focus();
+        }
     }
 
     const scrollToBottom = () => {
         endRef.current?.scrollIntoView({ behavior: 'smooth' });
-        endRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && prompt !== '') {
             handleSendPrompt();
         }
     };
@@ -60,6 +66,10 @@ const Home = () => {
     useEffect(() => {
         scrollToBottom();
     }, [aiResponse])
+
+    useEffect(() => {
+        textareaRef?.current?.focus();
+    }, [])
 
     return (
         <div className="w-full h-full flex flex-col px-7 pb-7 relative items-center gap-5 max-h-screen">
@@ -84,6 +94,7 @@ const Home = () => {
                 <div ref={endRef} />
             </ScrollArea>
             <Textarea
+                ref={textareaRef}
                 value={prompt}
                 onChange={(event) => setPrompt(event.target.value)}
                 onSend={handleSendPrompt}

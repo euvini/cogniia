@@ -1,5 +1,5 @@
 import { useAuthStore, User } from '@/zustand-store/authStore';
-import api from './api';
+import { api } from './api';
 import Cookie from 'js-cookie';
 import { LoginRequest, LoginResponse, RecoveryPasswordRequest, RegisterRequest, RegisterResponse } from './types';
 import { encryptPassword } from '@/lib/utils';

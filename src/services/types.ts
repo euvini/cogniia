@@ -1,3 +1,12 @@
+export const StatusCodeEnum = {
+    NOT_FOUND: 404,
+    OK: 200,
+    BAD_REQUEST: 400,
+    UNAUTHORIZED: 403,
+    MULTI_STATUS: 207,
+    TIMEOUT: 524
+};
+
 export interface LoginResponse {
     message: string
     body: {

@@ -1,4 +1,4 @@
-import api from "./api";
+import { api } from "./api";
 import { ChangePasswordRequest } from "./types";
 
 export function userDetailService(idUser: string) {

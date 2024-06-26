@@ -1,6 +1,6 @@
-import axios from "axios";
 import { ISendMessageToAI } from "./types";
+import { apiAI } from "./api";
 
 export function sendMessageToAI(message: ISendMessageToAI) {
-    return axios.post('https://cognia-api.otimiza.ai/chat/messages', message)
+    return apiAI.post('/chat/messages', message)
 }

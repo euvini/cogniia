@@ -56,10 +56,10 @@ export function AlertDialogComponent({
             <AlertDialogContent className="max-w-[410px] p-10 items-center gap-6 flex flex-col">
                 {
                     (!error && icon) &&
-                    (<Image src='PolygonOK.svg' width={120} height={120} alt="polygon" />)
+                    (<Image src='/PolygonOK.svg' width={120} height={120} alt="polygon" />)
                 }{
                     (error && icon) &&
-                    (<Image src='PolygonX.svg' width={120} height={120} alt="polygon" />)
+                    (<Image src='/PolygonX.svg' width={120} height={120} alt="polygon" />)
                 }
                 <AlertDialogHeader className="items-center flex flex-col">
                     <AlertDialogTitle className="text-purple-700 text-2xl text-center font-bold">{title}</AlertDialogTitle>

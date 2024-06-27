@@ -11,6 +11,8 @@ import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/comp
 import { validateEmail } from "@/lib/utils"
 import Image from "next/image"
 import Link from "next/link"
+import { forgotPassword, recoveryPassword } from "@/services/authService"
+import { RecoveryPasswordRequest } from "@/services/types"
 
 interface UserRecoveryFormProps extends React.HTMLAttributes<HTMLDivElement> {
     onOpenChange?: (open: boolean) => void
@@ -24,15 +26,24 @@ export function UserRecoveryForm({ className, onOpenChange, ...props }: UserReco
 
     const [email, setEmail] = React.useState<string>('');
 
+    const [apiMessageResponse, setApiMessageResponse] = React.useState<{ title: string, description?: string }>({ title: '', description: '' });
+
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
         setIsLoading(true)
-        setShowOTP(true)
 
-        setTimeout(() => {
+        try {
+            const response = await forgotPassword(email)
+            const message = response.data.message
+            setApiMessageResponse(message)
+            setShowOTP(true)
+
+        } catch (ex) {
+            console.log(ex)
+            setIsFailRequest(true)
+        } finally {
             setIsLoading(false)
-            setShowOTP(false)
-        }, 6000)
+        }
     }
 
     return (
@@ -58,9 +69,9 @@ export function UserRecoveryForm({ className, onOpenChange, ...props }: UserReco
                             </div>
                             : !isFailRequest ?
                                 <div className="flex flex-col space-y-2 text-left items-center max-w-80 mb-3 gap-2">
-                                    <Image src='PolygonOK.svg' width={120} height={120} alt="polygon" />
+                                    <Image src='/PolygonOK.svg' width={120} height={120} alt="polygon" />
                                     <h1 className="text-2xl font-bold tracking-tight text-center text-purple-700">
-                                        Instruções enviadas para seu e-mail
+                                        {apiMessageResponse?.title}
                                     </h1>
                                     <a className="text-grey-800 text-[16px]">
                                         Enviamos um código de redefinição de senha para o seu e-mail <b>{email}</b>. <br />
@@ -69,7 +80,7 @@ export function UserRecoveryForm({ className, onOpenChange, ...props }: UserReco
                                 </div>
                                 :
                                 <div className="flex flex-col space-y-2 text-left items-center max-w-80 mb-3 gap-2">
-                                    <Image src='PolygonX.svg' width={120} height={120} alt="polygon" />
+                                    <Image src='/PolygonX.svg' width={120} height={120} alt="polygon" />
                                     <h1 className="text-2xl font-bold tracking-tight text-center text-purple-700">
                                         Ocorreu um erro durante o envio da mensagem
                                     </h1>
@@ -104,25 +115,15 @@ export function UserRecoveryForm({ className, onOpenChange, ...props }: UserReco
                     </div>
                 </form>
                 <div className={`${!showOTP && 'hidden'} w-full flex flex-col gap-4 items-center max-w-80 justify-center mb-4`}>
-                    <InputOTP maxLength={6}>
-                        <InputOTPGroup>
-                            <InputOTPSlot index={0} />
-                            <InputOTPSlot index={1} />
-                            <InputOTPSlot index={2} />
-                        </InputOTPGroup>
-                        <InputOTPSeparator />
-                        <InputOTPGroup>
-                            <InputOTPSlot index={3} />
-                            <InputOTPSlot index={4} />
-                            <InputOTPSlot index={5} />
-                        </InputOTPGroup>
-                    </InputOTP>
-                    <Link href={'/recovery'}>
-                        <Button disabled={!validateEmail(email)} label="Confirmar" />
+                    <Link href={`/recovery/${email}`}>
+                        <Button disabled={!validateEmail(email)} label="Próximo" />
                     </Link>
                 </div>
                 <AlertDialogFooter className="mt-4">
-                    <AlertDialogCancel onClick={() => setEmail('')} className="w-full">
+                    <AlertDialogCancel onClick={() => {
+                        setEmail('')
+                        setShowOTP(false)
+                    }} className="w-full">
                         {showOTP ? 'Voltar para o login' : 'Cancelar'}
                     </AlertDialogCancel>
                 </AlertDialogFooter>

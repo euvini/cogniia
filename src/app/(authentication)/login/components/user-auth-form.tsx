@@ -37,13 +37,13 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         setShowDialog(false); // Fechar o dialog ao cancelar
     };
 
-    async function onSubmit(event: React.SyntheticEvent) {
+    async function onSubmitLogin(event: React.SyntheticEvent) {
         event.preventDefault()
         setIsLoading(true)
         await login({ email, password })
             .then(() => {
                 setIsLoading(false)
-                router.refresh()
+                router.replace('/')
             }).catch(e => {
                 setIsLoading(false)
                 setShowDialog(true);
@@ -57,7 +57,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 className={!showDialog ? 'hidden' : ''}
             />
             <div className={cn("grid", className)} {...props}>
-                <form onSubmit={onSubmit} >
+                <form onSubmit={onSubmitLogin} >
                     <div className="grid gap-10">
                         <div className="grid gap-4">
                             <Label className="text-purple-700 font-semibold text-[16px]" htmlFor="email">

@@ -8,7 +8,7 @@ export default function middleware(request: NextRequest) {
 
     const unAuthPaths = [
         '/login',
-        '/recovery',
+        '/recovery/:patch*',
         '/register'
     ]
 
@@ -30,7 +30,7 @@ export const config = {
         '/',
         '/home',
         '/login',
-        '/recovery',
+        '/recovery/:patch*',
         '/profile',
         '/register',
         '/changepassword',

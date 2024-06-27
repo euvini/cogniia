@@ -10,12 +10,12 @@ export default function RecoveryPage() {
 
     return (
         <>
-            <Image src='Hexagonos-default.svg' width={142} height={151} alt="bg polygon left" className="fixed -left-6 -bottom-6 transform scale-x-[-1] md:w-[360px] md:h-[507px] md:-bottom-32 md:-left-20" />
-            <Image src='Hexagonos-default.svg' width={142} height={151} alt="bg polygon right" className="fixed -right-6 -top-6 md:w-[360px] md:h-[507px] md:-top-32 md:-right-20" />
+            <Image src='/Hexagonos-default.svg' width={142} height={151} alt="bg polygon left" className="fixed -left-6 -bottom-6 transform scale-x-[-1] md:w-[360px] md:h-[507px] md:-bottom-32 md:-left-20" />
+            <Image src='/Hexagonos-default.svg' width={142} height={151} alt="bg polygon right" className="fixed -right-6 -top-6 md:w-[360px] md:h-[507px] md:-top-32 md:-right-20" />
             <div className="container relative h-screen flex flex-col items-center justify-center sm:grid md:grid lg:max-w-none ">
                 <div className="p-8">
                     <div className="mx-auto flex w-full flex-col justify-center space-y-6 mb-16 sm:w-[410px]">
-                        <Image src='cogniia.svg' width={180} height={54} alt={"logo-long"} />
+                        <Image src='/cogniia.svg' width={180} height={54} alt={"logo-long"} />
                     </div>
 
                     <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[410px]">

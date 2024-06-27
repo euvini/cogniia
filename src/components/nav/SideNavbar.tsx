@@ -45,9 +45,9 @@ export default function SideNavbar({ }: Props) {
     )}>
       {
         isCollapsed ?
-          <Image src="cogniia-short.svg" width={32} height={32} className="self-center" alt="logo" />
+          <Image src="/cogniia-short.svg" width={32} height={32} className="self-center" alt="logo" />
           :
-          <Image src="cogniia.svg" width={123} height={36} alt="logo" />
+          <Image src="/cogniia.svg" width={123} height={36} alt="logo" />
       }
       {!mobileWidth && (
 

@@ -44,9 +44,9 @@ export interface ChangePasswordRequest {
 }
 
 export interface RecoveryPasswordRequest {
-    email: string,
+    email: string | string[],
     token: string,
-    password: string
+    newPassword: string
 }
 
 export interface ISendMessageToAI {

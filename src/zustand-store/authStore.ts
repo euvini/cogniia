@@ -13,6 +13,7 @@ export interface User {
     name?: string;
     email?: string;
     password?: string;
+    sessionIds: string[]
 }
 
 export const useAuthStore = create(

@@ -18,7 +18,7 @@ interface IAlertDialogComponent {
     icon?: boolean
     show: boolean;
     title: string;
-    description: string;
+    description?: string;
     cancelText: string;
     actionText?: string;
     onAction?: () => void;

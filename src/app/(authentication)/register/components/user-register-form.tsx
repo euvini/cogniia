@@ -9,13 +9,19 @@ import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 import { register } from "@/services/authService"
 import { useRouter } from "next/navigation"
+import { AlertDialogComponent } from "@/components/alertComponent"
+import { AlertComponent } from "../../recovery/[email]/components/alert"
 
 interface UserRegisterFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function UserRegisterForm({ className, ...props }: UserRegisterFormProps) {
     const router = useRouter()
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const [showAlert, setShowAlert] = React.useState<boolean>(false)
+    const [showError, setShowError] = React.useState<boolean>(false)
     const [showPassword, setShowPassword] = React.useState<boolean>(false)
+
+    const [apiMessageResponse, setApiMessageResponse] = React.useState<{ title: string, description?: string }>({ title: '', description: '' });
 
     const [name, setname] = React.useState<string>('');
     const [email, setEmail] = React.useState<string>('');
@@ -23,22 +29,31 @@ export function UserRegisterForm({ className, ...props }: UserRegisterFormProps)
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
         setIsLoading(true)
+        setShowError(false)
 
         register({ nome: name, email, password })
-            .then(() => {
+            .then((response: any) => {
+                setApiMessageResponse({ title: 'Cadastro concluído com sucesso!', description: 'Você já pode interagir com a plataforma.' })
                 setIsLoading(false)
-                alert('cadastro realizado')
+                setShowAlert(true)
                 router.refresh()
-            }).catch(e => {
+            }).catch(ex => {
+                setApiMessageResponse(ex?.response?.data?.message)
                 setIsLoading(false)
-                alert('erro no cadastro')
+                setShowError(true)
             })
     }
 
     return (
         <div className={cn("grid", className)} {...props}>
+            <AlertDialogComponent show={showAlert} title={apiMessageResponse?.title} description={apiMessageResponse?.description} cancelText={"Começar"} isLoading={isLoading} />
             <form onSubmit={onSubmit}>
                 <div className="grid gap-8">
+                    {
+                        showError && (
+                            <AlertComponent helperText={apiMessageResponse?.title} />
+                        )
+                    }
                     <div className="grid gap-2">
                         <Label className="text-purple-700 font-semibold text-[16px]" htmlFor="name">
                             Nome

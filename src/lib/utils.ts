@@ -46,3 +46,10 @@ export const verifyHashPassword = async (password: string, hashedPassword: strin
   const isMatch = await bcrypt.compare(password, hashedPassword);
   return isMatch;
 };
+
+export function removeIfWhitespace(input: string): string {
+  if (input.trim() === "") {
+    return "";
+  }
+  return input;
+}

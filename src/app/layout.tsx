@@ -7,7 +7,7 @@ const raleway = Raleway({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Cogniia",
-  description: "Descrição da página exemplo",
+  description: "Sua ansiedade não precisa ser um problema",
   keywords: "cogniia, saude, ajuda"
 };
 

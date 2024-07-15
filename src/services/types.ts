@@ -14,6 +14,7 @@ export interface LoginResponse {
         id: string
         name: string
         email: string
+        sessionIds: string[]
     }
 }
 
@@ -50,16 +51,23 @@ export interface RecoveryPasswordRequest {
 }
 
 export interface ISendMessageToAI {
-    session_id: string
-    user_id_ext: string
+    session_id?: string
+    user_id_ext?: string
     text: string
     sender_type: string
     create_session: boolean
 }
 
 export interface IResponseMessageFromAI {
-    session_id: string
+    id?: string
+    session_id?: string
     user_id_ext: string
     text: string
     sender_type: string
+}
+
+export interface IResquestMessageHistory {
+    session_id: string;
+    last_message_id?: string
+    take?: number //100 max
 }

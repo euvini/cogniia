@@ -54,7 +54,7 @@ export default function ChangePassword() {
                 setShowDialog(true)
 
                 setErrorPassword(false)
-                setCurrentUser({ ...user, password: await encryptPassword(newPassword) })
+                setCurrentUser({ ...user, password: await encryptPassword(newPassword), sessionIds: user?.sessionIds ?? [] })
             }).catch(e => {
                 setTitleDialog('Ocorreu um erro durante a alteração de senha')
                 setDescriptionDialog('Houve um problema de comunicação em nosso servidor e não foi possível alterar sua senha no momento. Por favor tente novamente mais tarde.')

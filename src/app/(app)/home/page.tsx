@@ -57,7 +57,7 @@ const Home = () => {
     }, [])
 
     useEffect(() => {
-        if (user?.sessionIds && user.sessionIds.length > 0) {
+        if (user?.sessionIds && user.sessionIds.length > 0 && messages.length === 0) {
             const request: IResquestMessageHistory = {
                 session_id: user.sessionIds[0],
                 take: 50
@@ -71,7 +71,9 @@ const Home = () => {
     }, [messages])
 
     useEffect(() => {
-        router.refresh()
+        if (messages.length === 0) {
+            router.refresh()
+        }
     }, [])
 
     return (

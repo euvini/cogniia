@@ -1,5 +1,6 @@
 'use client'
 import { AlertToastComponent } from "@/components/alert";
+import { Icons } from "@/components/icons";
 import MessageBubble from "@/components/message";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -8,10 +9,10 @@ import { removeIfWhitespace } from "@/lib/utils";
 import { IResquestMessageHistory } from "@/services/types";
 import { useAuthStore } from "@/zustand-store/authStore";
 import { useChatStore } from "@/zustand-store/chatStore";
-import { Sparkles } from "lucide-react";
+import { ArrowUp, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Home = () => {
     const topRef = useRef<HTMLDivElement | null>(null)
@@ -21,18 +22,24 @@ const Home = () => {
     const { user } = useAuthStore()
     const { error, getHistory, isLoading, lastMessage, messages, sendMessage, prompt, setPrompt } = useChatStore()
 
+    const [isTopVisible, setIsTopVisible] = useState(true);
+
     const handleSendMessage = () => {
         const sessionId = user?.sessionIds?.length === 0 ? '' : user?.sessionIds[0];
         const userIdExt = user?.id;
         sendMessage(sessionId, userIdExt, prompt, scrollToBottom);
-    };
 
-    const scrollToBottom = () => {
-        endRef.current?.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+            scrollToBottom()
+        }, 500)
     };
 
     const scrollToTop = () => {
         topRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    const scrollToBottom = () => {
+        endRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -48,7 +55,7 @@ const Home = () => {
                 take: 10,
                 last_message_id: lastMessage?.id
             }
-            getHistory(request, messages, scrollToTop)
+            getHistory(request, messages)
         }
     }
 
@@ -62,13 +69,13 @@ const Home = () => {
                 session_id: user.sessionIds[0],
                 take: 50
             }
-            getHistory(request, messages, scrollToBottom)
+            getHistory(request, messages)
         }
     }, [])
 
-    useEffect(() => {
-        scrollToBottom()
-    }, [messages])
+    // useEffect(() => {
+    //     scrollToBottom()
+    // }, [messages])
 
     useEffect(() => {
         if (messages.length === 0) {
@@ -76,14 +83,39 @@ const Home = () => {
         }
     }, [])
 
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsTopVisible(entry.isIntersecting);
+            },
+            { threshold: 0.1 }
+        );
+
+        if (topRef.current) {
+            observer.observe(topRef.current);
+        }
+
+        return () => {
+            if (topRef.current) {
+                observer.unobserve(topRef.current);
+            }
+        };
+    }, []);
+
     return (
         <div className="w-full h-full flex flex-col px-7 pb-7 relative items-center gap-5 max-h-screen">
             <ScrollArea id='scrollArea' className="h-full pr-3 max-w-xl w-full">
                 <div className="w-full h-20 z-10 absolute top-0 bg-gradient-to-b from-white via-white-opacity-30 to-white-opacity-70" />
-                {/* <div ref={topRef} /> */}
+                <div ref={topRef} />
                 <div className="flex flex-col items-center justify-center max-w-xl pt-8">
-                    {/* <Button type='button' onClick={getHistoryTrigger} className="z-20" isLoading={isLoading} disabled={isLoading}>Carregar mais</Button> */}
-                    <MessageBubble messages={messages} />
+                    {
+                        !isTopVisible && (
+                            <Button variant='outline' className="fixed top-10 z-20" onClick={scrollToTop}>
+                                <ArrowUp />
+                            </Button>
+                        )
+                    }
+                    <MessageBubble messages={messages} onClick={getHistoryTrigger} loading={isLoading} />
                     {
                         isLoading && (
                             <div className="mt-3 flex items-center self-start gap-3">

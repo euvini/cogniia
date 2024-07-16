@@ -5,7 +5,7 @@ import { create } from 'zustand'
 type Store = {
     isLoading: boolean
     error: boolean
-    getHistory: (request: IResquestMessageHistory, currentMessages: IResponseMessageFromAI[], scroll: () => void) => void
+    getHistory: (request: IResquestMessageHistory, currentMessages: IResponseMessageFromAI[]) => void
     messages: IResponseMessageFromAI[]
     currentMessages: IResponseMessageFromAI[]
     lastMessage: IResponseMessageFromAI | null
@@ -22,7 +22,7 @@ export const useChatStore = create<Store>((set) => ({
     lastMessage: null,
     prompt: '',
     setPrompt: (prompt: string) => { set({ prompt }) },
-    getHistory: async (request: IResquestMessageHistory, currentMessages: IResponseMessageFromAI[], scroll: () => void) => {
+    getHistory: async (request: IResquestMessageHistory, currentMessages: IResponseMessageFromAI[]) => {
         set({ isLoading: true, error: false });
 
         try {
@@ -32,10 +32,8 @@ export const useChatStore = create<Store>((set) => ({
 
             if (currentMessages.length > 0) {
                 set({ messages: [...messages, ...currentMessages], lastMessage });
-                scroll()
             } else {
                 set({ messages, lastMessage });
-                scroll()
             }
 
 
@@ -75,6 +73,7 @@ export const useChatStore = create<Store>((set) => ({
                 messages: [...state.messages, aiMessage],
                 prompt: '',
             }));
+
             scroll()
 
         } catch (e) {

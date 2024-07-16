@@ -64,6 +64,7 @@ export interface IResponseMessageFromAI {
     user_id_ext: string
     text: string
     sender_type: string
+    created_at?: string
 }
 
 export interface IResquestMessageHistory {

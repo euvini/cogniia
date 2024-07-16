@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { ValidationResult } from "./types";
 import bcrypt from 'bcryptjs';
+import { format } from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -53,3 +54,23 @@ export function removeIfWhitespace(input: string): string {
   }
   return input;
 }
+
+export function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function formatDate(date: Date, dateFormat = "dd MMM yyyy - hh:mm") {
+  const formattedDate = format(new Date(date), dateFormat);
+
+  const parts = formattedDate.split(" ");
+
+  if (parts.length !== 3) {
+    return formattedDate;
+  }
+
+  const [day, month, year] = parts;
+
+  const capitalizedMonth = capitalizeFirstLetter(month);
+
+  return `${day} ${capitalizedMonth} ${year}`;
+};

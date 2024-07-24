@@ -9,6 +9,7 @@ import { removeIfWhitespace } from "@/lib/utils";
 import { IResquestMessageHistory } from "@/services/types";
 import { useAuthStore } from "@/zustand-store/authStore";
 import { useChatStore } from "@/zustand-store/chatStore";
+import { formatDate } from "date-fns";
 import { ArrowUp, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -22,12 +23,28 @@ const Home = () => {
     const { user } = useAuthStore()
     const { error, getHistory, isLoading, lastMessage, messages, sendMessage, prompt, setPrompt } = useChatStore()
 
+    const sugestionPromt1 = 'Tem como me ajudar a planejar um dia relaxante que se concentre em atividades revigorantes?'
+    const sugestionPromt2 = 'Preciso de ajuda para me acalmar. Não estou muito bem.'
+
     const [isTopVisible, setIsTopVisible] = useState(true);
 
-    const handleSendMessage = () => {
+    const noMessages = messages.length === 0;
+
+    const isDifferentDay = (() => {
+        if (messages.length === 0) return false;
+
+        const lastMessageDate = new Date(messages[messages.length - 1]?.created_at ?? '');
+        const currentDate = new Date();
+
+        return lastMessageDate.getDate() !== currentDate.getDate() ||
+            lastMessageDate.getMonth() !== currentDate.getMonth() ||
+            lastMessageDate.getFullYear() !== currentDate.getFullYear();
+    })();
+
+    const handleSendMessage = (customPrompt?: string) => {
         const sessionId = user?.sessionIds?.length === 0 ? '' : user?.sessionIds[0];
         const userIdExt = user?.id;
-        sendMessage(sessionId, userIdExt, prompt, scrollToBottom);
+        sendMessage(sessionId, userIdExt, customPrompt ?? prompt, scrollToBottom);
 
         setTimeout(() => {
             scrollToBottom()
@@ -132,6 +149,27 @@ const Home = () => {
                 </div>
                 <div ref={endRef} />
             </ScrollArea>
+            {
+                noMessages || isDifferentDay && !isLoading ?
+                    (
+                        <div className="grid grid-cols-2 gap-3">
+                            <div
+                                className="flex flex-col rounded-2xl w-full p-4 border border-grey-300 cursor-pointer bg-purple-50"
+                                onClick={() => handleSendMessage(sugestionPromt1)}
+                            >
+                                <h6 className="font-semibold text-purple-900">Planeje um dia para cuidar da mente</h6>
+                                <span className="text-grey-700">e me ajudar a relaxar</span>
+                            </div>
+                            <div
+                                className="flex flex-col rounded-2xl w-full p-4 border border-grey-300 cursor-pointer bg-purple-50"
+                                onClick={() => handleSendMessage(sugestionPromt2)}
+                            >
+                                <h6 className="font-semibold text-purple-900">Não estou me sentindo bem</h6>
+                                <span className="text-grey-700">preciso me acalmar</span>
+                            </div>
+                        </div>
+                    ) : null
+            }
             <Textarea
                 ref={textareaRef}
                 value={prompt}

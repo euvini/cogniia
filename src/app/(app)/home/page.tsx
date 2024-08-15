@@ -44,7 +44,8 @@ const Home = () => {
     const handleSendMessage = (customPrompt?: string) => {
         const sessionId = user?.sessionIds?.length === 0 ? '' : user?.sessionIds[0];
         const userIdExt = user?.id;
-        sendMessage(sessionId, userIdExt, customPrompt ?? prompt, scrollToBottom);
+        const text = customPrompt ?? prompt
+        sendMessage(sessionId, userIdExt, text, scrollToBottom);
 
         setTimeout(() => {
             scrollToBottom()
@@ -174,7 +175,7 @@ const Home = () => {
                 ref={textareaRef}
                 value={prompt}
                 onChange={(event) => setPrompt(removeIfWhitespace(event.target.value))}
-                onSend={handleSendMessage}
+                onSend={() => handleSendMessage()}
                 disabled={isLoading}
                 onKeyDown={handleKeyDown}
             />

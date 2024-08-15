@@ -64,7 +64,7 @@ export default function PrivacyTerms() {
                 <h3 className="text-xl font-bold mt-8 mb-4 text-purple-700">1. DO FUNCIONAMENTO DA PLATAFORMA:</h3>
 
                 <p className="mb-4">
-                    1.1. Para o Usuário se cadastrar na Plataforma, deverá atender todas as exigências nela descritas, fornecendo as informações requeridas de forma precisa e verdadeira. O Usuário declara e assume o compromisso de atualizar os dados inseridos em seu cadastro ("Dados Pessoais") sempre que for necessário ou solicitado pela Plataforma.
+                    1.1. Para o Usuário se cadastrar na Plataforma, deverá atender todas as exigências nela descritas, fornecendo as informações requeridas de forma precisa e verdadeira. O Usuário declara e assume o compromisso de atualizar os dados inseridos em seu cadastro (Dados Pessoais) sempre que for necessário ou solicitado pela Plataforma.
                 </p>
 
                 <p className="mb-4">

@@ -57,53 +57,54 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 className={!showDialog ? 'hidden' : ''}
             />
             <div className={cn("grid", className)} {...props}>
-                <form onSubmit={onSubmitLogin} >
-                    <div className="grid gap-10">
-                        <div className="grid gap-4">
-                            <Label className="text-purple-700 font-semibold text-[16px]" htmlFor="email">
-                                E-mail
-                            </Label>
-                            <Input
-                                id="email"
-                                placeholder="nome@exemplo.com"
-                                type="email"
-                                autoCapitalize="none"
-                                autoComplete="email"
-                                autoCorrect="off"
-                                disabled={isLoading}
-                                onChange={(e) => setEmail(e.target.value)}
-                                helperText={email && !validateEmail(email) ? 'Formato de e-mail inválido. Por favor verifique o campo e tente novamente.' : ''}
-                                error={email && !validateEmail(email) ? true : false}
-                            />
-                        </div>
-                        <div className="grid gap-4">
-                            <Label className="text-purple-700 font-semibold text-[16px]" htmlFor="password">
-                                Senha
-                            </Label>
-                            <Input
-                                id="password"
-                                placeholder="Digite sua senha aqui"
-                                type="password"
-                                autoCapitalize="none"
-                                autoComplete="current-password"
-                                autoCorrect="off"
-                                disabled={isLoading}
-                                onChange={(e) => setPassword(e.target.value)}
-                                passwordIcon
-                                showPassword={showPassword}
-                                setShowPassword={() => setShowPassword(!showPassword)}
-                            />
-                            <div className="flex justify-end w-full">
-                                <UserRecoveryForm onOpenChange={(open) => setIsAlertDialogOpen(open)} />
-                            </div>
-                        </div>
-                        <Button
-                            disabled={isLoading || !validateEmail(email) || password === ''}
-                            isLoading={isLoading}
-                            label="Entrar"
+
+                <div className="grid gap-10">
+                    <div className="grid gap-4">
+                        <Label className="text-purple-700 font-semibold text-[16px]" htmlFor="email">
+                            E-mail
+                        </Label>
+                        <Input
+                            id="email"
+                            placeholder="nome@exemplo.com"
+                            type="email"
+                            autoCapitalize="none"
+                            autoComplete="email"
+                            autoCorrect="off"
+                            disabled={isLoading}
+                            onChange={(e) => setEmail(e.target.value)}
+                            helperText={email && !validateEmail(email) ? 'Formato de e-mail inválido. Por favor verifique o campo e tente novamente.' : ''}
+                            error={email && !validateEmail(email) ? true : false}
                         />
                     </div>
-                </form>
+                    <div className="grid gap-4">
+                        <Label className="text-purple-700 font-semibold text-[16px]" htmlFor="password">
+                            Senha
+                        </Label>
+                        <Input
+                            id="password"
+                            placeholder="Digite sua senha aqui"
+                            type="password"
+                            autoCapitalize="none"
+                            autoComplete="current-password"
+                            autoCorrect="off"
+                            disabled={isLoading}
+                            onChange={(e) => setPassword(e.target.value)}
+                            passwordIcon
+                            showPassword={showPassword}
+                            setShowPassword={() => setShowPassword(!showPassword)}
+                        />
+                        <div className="flex justify-end w-full">
+                            <UserRecoveryForm onOpenChange={(open) => setIsAlertDialogOpen(open)} />
+                        </div>
+                    </div>
+                    <Button
+                        disabled={isLoading || !validateEmail(email) || password === ''}
+                        isLoading={isLoading}
+                        label="Entrar"
+                        onClick={onSubmitLogin}
+                    />
+                </div>
+
             </div>
         </>
     )

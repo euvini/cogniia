@@ -100,7 +100,7 @@ export default function Profile() {
                     <Label className="text-xl text-grey-800 font-semibold mb-8">
                         Dados Cadastrados
                     </Label>
-                    <div className="flex flex-row justify-between">
+                    <div className="flex flex-row flex-wrap justify-between gap-6">
                         <div className="grid gap-4">
                             <Label className="text-grey-800 text-[16px]">Nome</Label>
                             <Label className="text-purple-700 text-xl font-semibold">

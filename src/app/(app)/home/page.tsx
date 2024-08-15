@@ -23,8 +23,8 @@ const Home = () => {
     const { user } = useAuthStore()
     const { error, getHistory, isLoading, lastMessage, messages, sendMessage, prompt, setPrompt } = useChatStore()
 
-    const sugestionPromt1 = 'Tem como me ajudar a planejar um dia relaxante que se concentre em atividades revigorantes?'
-    const sugestionPromt2 = 'Preciso de ajuda para me acalmar. Não estou muito bem.'
+    const sugestionPromt1 = 'Quero falar sobre algo que aconteceu ou sobre meus sintomas de ansiedade'
+    const sugestionPromt2 = 'Quero ajudar para enfrentar a ansiedade'
 
     const [isTopVisible, setIsTopVisible] = useState(true);
 
@@ -157,15 +157,15 @@ const Home = () => {
                                 className="flex flex-col rounded-2xl w-full p-4 border border-grey-300 cursor-pointer bg-purple-50"
                                 onClick={() => handleSendMessage(sugestionPromt1)}
                             >
-                                <h6 className="font-semibold text-purple-900">Planeje um dia para cuidar da mente</h6>
-                                <span className="text-grey-700">e me ajudar a relaxar</span>
+                                <h6 className="font-semibold text-purple-900">Quero falar sobre algo que aconteceu</h6>
+                                <span className="text-grey-700">ou sobre meus sintomas de ansiedade</span>
                             </div>
                             <div
                                 className="flex flex-col rounded-2xl w-full p-4 border border-grey-300 cursor-pointer bg-purple-50"
                                 onClick={() => handleSendMessage(sugestionPromt2)}
                             >
-                                <h6 className="font-semibold text-purple-900">Não estou me sentindo bem</h6>
-                                <span className="text-grey-700">preciso me acalmar</span>
+                                <h6 className="font-semibold text-purple-900">Quero ajuda para enfrentar a ansiedade</h6>
+                                <span className="text-grey-700"></span>
                             </div>
                         </div>
                     ) : null

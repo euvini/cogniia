@@ -94,8 +94,8 @@ export default function ChangePassword() {
                     <Label className="text-[16px] text-grey-800 mb-8">
                         Para alterar sua senha de acesso, preencha o primeiro campo com a senha que utiliza atualmente para acessar a plataforma, e o segundo campo com sua nova senha.
                     </Label>
-                    <div className="grid grid-cols-2 gap-8 relative">
-                        <div className="grid  mt-14">
+                    <div className="flex flex-wrap gap-9 items-center sm:flex-nowrap sm:flex-row">
+                        <div className="w-full mt-14">
                             <Label className="text-grey-800 mb-4 text-[16px]">
                                 Senha Antiga
                             </Label>
@@ -115,7 +115,7 @@ export default function ChangePassword() {
                                 setShowPassword={() => setIsPasswordVisible(!isPasswordVisible)}
                             />
                         </div>
-                        <div className="grid mt-14">
+                        <div className="w-full mt-14">
                             <Label className="text-grey-800 mb-4 text-[16px]">
                                 Nova Senha
                             </Label>

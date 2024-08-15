@@ -8,8 +8,10 @@ export default function middleware(request: NextRequest) {
 
     const unAuthPaths = [
         '/login',
-        '/recovery/:patch*',
-        '/register'
+        '/recovery/:patch',
+        '/register',
+        '/privacy-terms',
+        '/service-terms'
     ]
 
     if (!token) {
@@ -30,12 +32,10 @@ export const config = {
         '/',
         '/home',
         '/login',
-        '/recovery/:patch*',
+        '/recovery/:patch',
         '/profile',
         '/register',
         '/changepassword',
-        '/privacy-terms',
-        '/service-terms',
         '/contact'
     ]
 }

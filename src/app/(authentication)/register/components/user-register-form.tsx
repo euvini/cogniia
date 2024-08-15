@@ -11,6 +11,7 @@ import { register } from "@/services/authService"
 import { useRouter } from "next/navigation"
 import { AlertDialogComponent } from "@/components/alertComponent"
 import { AlertComponent } from "../../recovery/[email]/components/alert"
+import Link from "next/link"
 
 interface UserRegisterFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
@@ -105,7 +106,18 @@ export function UserRegisterForm({ className, ...props }: UserRegisterFormProps)
                         />
                     </div>
                     <a className="text-grey-700 text-sm mt-4">
-                        Ao cadastrar-se, você aceita nossos <b className="text-purple-400 underline hover:cursor-pointer">Termos de uso</b> e <b className="text-purple-400 underline hover:cursor-pointer">Política de Privacidade</b>.
+                        Ao cadastrar-se, você aceita nossos
+                        <b className="text-purple-400 hover:cursor-pointer">
+                            <a href={'/service-terms'} target="_blank" rel="noopener noreferrer">
+                                {' '}Termos
+                            </a>
+                        </b>
+                        {' '}e
+                        <b className="text-purple-400">
+                            <a href={'/privacy-terms'} target="_blank" rel="noopener noreferrer">
+                                {' '}Políticas de privacidade
+                            </a>
+                        </b>.
                     </a>
                     <Button
                         disabled={isLoading || !validateEmail(email) || password === ''}

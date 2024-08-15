@@ -8,7 +8,7 @@ export default function ContactPage() {
         <section className="relative h-full flex flex-col items-center p-4 pt-16">
             <div className="max-w-4xl w-full flex flex-col gap-36">
                 <Label className="text-3xl text-purple-700  font-bold">Entre em contato</Label>
-                <div className="grid grid-cols-2 gap-9  items-center">
+                <div className="flex flex-wrap gap-9 items-center sm:flex-nowrap sm:flex-row">
                     <Image src='/contact.png' alt="contact-illustration" width={517} height={515} style={{ objectFit: 'cover' }} />
                     <div className="relative flex flex-col gap-6">
                         <Link href={''} className="flex gap-4 items-center">

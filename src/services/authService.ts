@@ -46,4 +46,5 @@ export const logout = (): void => {
     useAuthStore.getState().clearCurrentUser();
 
     Cookie.remove('token');
+
 };

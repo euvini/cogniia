@@ -24,7 +24,7 @@ const Home = () => {
     const { error, getHistory, isLoading, lastMessage, messages, sendMessage, prompt, setPrompt } = useChatStore()
 
     const sugestionPromt1 = 'Quero falar sobre algo que aconteceu ou sobre meus sintomas de ansiedade'
-    const sugestionPromt2 = 'Quero ajudar para enfrentar a ansiedade'
+    const sugestionPromt2 = 'Quero ajuda para enfrentar a ansiedade'
 
     const [isTopVisible, setIsTopVisible] = useState(true);
 
@@ -91,9 +91,9 @@ const Home = () => {
         }
     }, [])
 
-    // useEffect(() => {
-    //     scrollToBottom()
-    // }, [messages])
+    useEffect(() => {
+        scrollToBottom()
+    }, [messages])
 
     useEffect(() => {
         if (messages.length === 0) {

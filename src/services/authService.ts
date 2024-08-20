@@ -1,4 +1,5 @@
 import { useAuthStore, User } from '@/zustand-store/authStore';
+import { useChatStore } from '@/zustand-store/chatStore';
 import { api } from './api';
 import Cookie from 'js-cookie';
 import { LoginRequest, LoginResponse, RecoveryPasswordRequest, RegisterRequest, RegisterResponse } from './types';
@@ -44,6 +45,7 @@ export function recoveryPassword(user: RecoveryPasswordRequest) {
 
 export const logout = (): void => {
     useAuthStore.getState().clearCurrentUser();
+    useChatStore.getState().clearData()
 
     Cookie.remove('token');
 

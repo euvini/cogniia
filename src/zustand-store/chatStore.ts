@@ -12,6 +12,7 @@ type Store = {
     sendMessage: (sessionId: string | undefined, userIdExt: string | undefined, prompt: string, scroll: () => void) => void
     prompt: string
     setPrompt: (prompt: string) => void
+    clearData: () => void
 }
 
 export const useChatStore = create<Store>((set) => ({
@@ -22,6 +23,9 @@ export const useChatStore = create<Store>((set) => ({
     lastMessage: null,
     prompt: '',
     setPrompt: (prompt: string) => { set({ prompt }) },
+    clearData: () => {
+        set({ messages: [], currentMessages: [], lastMessage: null, prompt: '', error: false, isLoading: false })
+    },
     getHistory: async (request: IResquestMessageHistory, currentMessages: IResponseMessageFromAI[]) => {
         set({ isLoading: true, error: false });
 

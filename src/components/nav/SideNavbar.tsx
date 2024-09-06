@@ -21,9 +21,11 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { logout } from "@/services/authService";
 import { useRouter } from "next/navigation";
+import { AlertDialogComponent } from "../alertComponent";
 
 export default function SideNavbar({ }: Props) {
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
   const router = useRouter()
 
   const onlyWidth = useWindowWidth();
@@ -66,7 +68,7 @@ export default function SideNavbar({ }: Props) {
 
       )}
       <Nav
-        logout={handleLogout}
+        logout={() => setShowAlert(true)}
         isCollapsed={mobileWidth ? true : isCollapsed}
         links={[
           {
@@ -89,11 +91,21 @@ export default function SideNavbar({ }: Props) {
           },
           {
             title: "Deixe seu feedback",
-            href: "/settings",
+            href: "https://docs.google.com/forms/d/e/1FAIpQLScdNAlCPJ0RqOpx8_y1G4PUy2vvNkZSNLfcEtZBx5hoIYVKzQ/viewform?usp=sf_link",
             icon: Sparkles,
-            variant: "ghost"
+            variant: "ghost",
+            target: '_blank'
           }
         ]}
+      />
+      <AlertDialogComponent
+        show={showAlert}
+        title={"Deseja realmente sair?"}
+        cancelText={"Sair"}
+        actionText="Cancelar"
+        icon={false}
+        onCancel={handleLogout}
+        onAction={() => setShowAlert(false)}
       />
     </div>
   );

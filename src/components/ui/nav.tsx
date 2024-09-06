@@ -14,6 +14,7 @@ import {
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { usePathname } from "next/navigation";
 import { Separator } from "./separator";
+import { HTMLAttributeAnchorTarget } from "react";
 
 interface NavProps {
   isCollapsed: boolean;
@@ -23,6 +24,7 @@ interface NavProps {
     icon: LucideIcon;
     variant: "default" | "ghost";
     href: string;
+    target?: HTMLAttributeAnchorTarget
   }[];
   logout?: () => void
 }
@@ -42,6 +44,7 @@ export function Nav({ links, isCollapsed, logout }: NavProps) {
                 <TooltipTrigger asChild>
                   <Link
                     href={link.href}
+                    target={link.target}
                     className={cn("size-11 self-center items-center flex justify-center rounded-full hover:bg-purple-50", link.href === pathName && "bg-purple-50")}
                   >
                     <link.icon className={cn("h-5 w-5 text-grey-700 hover:text-purple-700", link.href === pathName && "text-purple-700 ")} />
@@ -64,6 +67,7 @@ export function Nav({ links, isCollapsed, logout }: NavProps) {
               <Link
                 key={index}
                 href={link.href}
+                target={link.target}
                 className={cn("flex gap-2 items-center p-2 rounded-lg hover:bg-purple-50", link.href === pathName && "bg-purple-50")}
               >
                 <link.icon className={cn("h-5 w-5 text-grey-700 hover:text-purple-700", link.href === pathName && "text-purple-700 ")} />

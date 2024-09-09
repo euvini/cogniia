@@ -34,7 +34,7 @@ api.interceptors.response.use(
 );
 
 const apiAI = axios.create({
-    baseURL: 'https://cognia-api.otimiza.ai',
+    baseURL: 'https://cogniia-ai.onrender.com',
     headers: {
         "Content-Type": 'application/json',
         'Access-Control-Allow-Origin': '*'
